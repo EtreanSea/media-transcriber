@@ -1,4 +1,4 @@
-# Version 0.3: uploaded files are passed to fake transcriber through a temporary file path.
+# Version 0.4: uploaded audio/video files are transcribed locally using faster-whisper.
 
 import os
 import tempfile
@@ -28,7 +28,7 @@ if "transcript" not in st.session_state:
 if "last_uploaded_file" not in st.session_state:
     st.session_state['last_uploaded_file'] = None
 
-st.title("TikTok-Transcriber")
+st.title("Media-Transcriber")
 
 #Debug
 #st.write("st_session_state.object")
