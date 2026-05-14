@@ -1,4 +1,4 @@
-# Version 0.4: uploaded audio/video files are transcribed locally using faster-whisper.
+# Version 0.5: faster-whisper model loading is cached for faster repeated transcriptions.
 
 import os
 import tempfile

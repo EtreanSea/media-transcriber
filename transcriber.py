@@ -1,3 +1,4 @@
+import streamlit as st
 from faster_whisper import WhisperModel
 
 # 1. Load a Whisper model
@@ -5,10 +6,16 @@ from faster_whisper import WhisperModel
 # 3. Collect the text from each segment
 # 4. Return the transcript as one string
 
-def transcribe_file(file_path, original_filename, language_code):
-
+@st.cache_resource
+def load_model():
+    #Debug
+    #st.write("Loading WhisperModel...")
     model_size = "tiny"
     model = WhisperModel(model_size, device="cpu", compute_type="int8")
+    return model
+
+def transcribe_file(file_path, original_filename, language_code):
+    model = load_model()
     segments, info = model.transcribe(file_path, beam_size=2, language=language_code)
     transcript_lines = []
     for segment in segments:
