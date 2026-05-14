@@ -1,4 +1,4 @@
-# Douyin/TikTok Transcriber
+# Media Transcriber
 
 A local transcription tool for short videos and audio files.
 
