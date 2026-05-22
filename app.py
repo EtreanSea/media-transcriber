@@ -1,4 +1,4 @@
-# Version 0.5: faster-whisper model loading is cached for faster repeated transcriptions.
+# Version 0.6: optional timestamps and line numbers
 
 import os
 import tempfile
