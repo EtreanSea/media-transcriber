@@ -4,11 +4,11 @@ A local transcription tool for short videos and audio files.
 
 ## Problem
 
-Sometimes I want the transcript of a TikTok/Douyin video, especially Chinese Douyin videos, but many online tools either rely on the platform's built-in captions or require payment for better transcription.
+Sometimes I want the transcript of a TikTok/Douyin video, especially Chinese tiktok videos, but many online tools either rely on the platform's built-in captions or require payment for better transcription.
 
 ## Goal
 
-Build a tool that accepts an uploaded `.mp3`, `.wav`, or `.mp4` file and generates a transcript without relying on TikTok/Douyin's own transcript.
+Build a tool that accepts an uploaded `.mp3`, `.wav`, or `.mp4` file (perhaps even links in future)and generates a transcript without relying on TikTok/Douyin's own transcript.
 
 ## Version 1
 
@@ -27,6 +27,7 @@ Build a tool that accepts an uploaded `.mp3`, `.wav`, or `.mp4` file and generat
 - Add language selection:
   - Chinese
   - English
+  - etc..
   - Auto-detect
 
 ## Version 4

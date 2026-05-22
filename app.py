@@ -56,6 +56,10 @@ if uploaded_file is not None:
     }
     language_code = language_map[language]
 
+    #checkboxes for toggling timestamps and line numbers
+    show_time = st.checkbox(label="Timestamps", value=True)
+    show_line = st.checkbox(label="Line numbers", value=False)
+
     #Transcribe button
     if st.button("Transcribe", type="primary"):
         #1. get suffix from uploaded_file (.mp4, .flac ...)
@@ -69,7 +73,7 @@ if uploaded_file is not None:
         with tempfile.NamedTemporaryFile(delete=False, suffix=uploaded_file_suffix) as temp_file:
             temp_file.write(uploaded_file_bytes)
             temp_file_path = temp_file.name
-        st.session_state['transcript'] = transcribe_file(temp_file_path, uploaded_file.name,language_code)
+        st.session_state['transcript'] = transcribe_file(temp_file_path, uploaded_file.name,language_code, show_line, show_time)
         os.remove(temp_file_path)
     
     #Debug

@@ -14,24 +14,42 @@ def load_model():
     model = WhisperModel(model_size, device="cpu", compute_type="int8")
     return model
 
-def transcribe_file(file_path, original_filename, language_code):
+
+#formats each line of the transcript
+def format_seconds(seconds):
+    hours = f"{int(seconds//3600):02d}"
+    mins = f"{int(seconds//60%60):02d}"
+    secs = f"{seconds%60:05.2f}"
+
+    return f"{hours}:{mins}:{secs}"
+def format_segment(segment, line_num, show_line, show_time):
+    prefix_parts = []
+    if show_line:
+        line = f"line {line_num}:"
+        prefix_parts.append(line)
+    if show_time:
+        time = f"[{format_seconds(segment.start)} -> {format_seconds(segment.end)}]"
+        prefix_parts.append(time)
+
+    prefix_parts.append(segment.text.strip())
+    return " ".join(prefix_parts)
+
+
+def transcribe_file(file_path, original_filename, language_code, show_line, show_time):
     model = load_model()
     segments, info = model.transcribe(file_path, beam_size=2, language=language_code)
     transcript_lines = []
-    for segment in segments:
-        segment_line = f"line {segment.id}: {segment.text}"
+    for line_num, segment in enumerate(segments, start=1):
+        segment_line = format_segment(segment, line_num, show_line, show_time)
         transcript_lines.append(segment_line)
 
 
-    return f"""
-    Transcript: {"\n".join(transcript_lines)}
-    
-    Original filename: {original_filename}
-    Temp file path: {file_path}
-    Language code: {language_code}
-    Detected Language: {info.language}
-    Accuracy confidence: {info.language_probability}
+    return f"""{"\n".join(transcript_lines)}
 
+Original filename: {original_filename}
+Language code: {language_code}
+Detected Language: {info.language}
+Accuracy confidence: {info.language_probability}
 """
 
 #only run if directly executing transcriber.py, wont run when app.py imports transcriber.py
