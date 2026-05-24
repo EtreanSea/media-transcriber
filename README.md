@@ -1,46 +1,104 @@
 # Media Transcriber
 
-A local transcription tool for short videos and audio files.
+A Streamlit web app for transcribing short audio and video files using `faster-whisper`.
+The app accepts uploaded media files, runs speech-to-text transcription, and outputs a downloadable transcript with optional timestamps and line numbers.
 
 ## Problem
 
-Sometimes I want the transcript of a TikTok/Douyin video, especially Chinese tiktok videos, but many online tools either rely on the platform's built-in captions or require payment for better transcription.
+Sometimes I want the transcript of a TikTok/Douyin videos, but many online tools either rely on the platform's built-in captions or require payment for better transcription.
+This project is an attempt to build my own transcription tool that works from an uploaded local media file instead of relying on TikTok/Douyin’s built-in captions.
 
-## Goal
+## Features
 
-Build a tool that accepts an uploaded `.mp3`, `.wav`, or `.mp4` file (perhaps even links in future)and generates a transcript without relying on TikTok/Douyin's own transcript.
+- Upload local audio/video files
+- Preview uploaded audio/video inside the app
+- Transcribe speech using `faster-whisper`
+- Transcription options such as language, timestamps
+- Download transcript as `.txt`
+- Cached Whisper model loading for faster repeated transcriptions
+- Temporary file handling for uploads
 
-## Version 1
+## Tech stack
+- Python
+- Streamlit
+- faster-whisper
+- Git/Github
 
+## Current Version
+
+### Version 7
+
+- improved transcription accuracy by 
+  - switching whisper model from "tiny" to "base"
+  - additional transcribe settings "vad_filter=True, condition_on_previous_text=False"
+
+
+## Development progress
+
+### Version 1
+- streamlit
+- fake transcripter that haven't implemented faster-whisper model
 - Accept a local audio/video file.
 - Extract or read the audio.
 - Transcribe the speech.
-- Save the result as `transcript.txt`.
+- Save the result as a fake `transcript.txt`.
 
-## Version 2
+### Version 2
 
-- Add timestamps.
-- Export `.srt` subtitles.
+- implemented simple timestamps function.
 
-## Version 3
+### Version 3
 
 - Add language selection:
   - Chinese
   - English
-  - etc..
   - Auto-detect
 
-## Version 4
+### Version 4
 
-- Add a simple UI.
+- implemented the faster-whisper model, transcripts are no longer fake.
 
-## Version 5
+### Version 5
 
-- Consider TikTok/Douyin URL support if technically and legally safe.
+- implemented the faster-whisper model to cache (so streamlit wouldn't load it again every time i transcribe)
 
-## Tech Ideas
+### Version 6
 
-- Python
-- faster-whisper or whisper.cpp
-- ffmpeg for extracting audio from video
-- optional web UI later
+- made timestamp and line_number optionals
+- launched the app on streamlit's community cloud
+
+## Known Issues / Limitations
+
+- Transcription quality vary between the local version and the deployed Streamlit Community Cloud version
+  - The local version runs on my laptop.
+  - The deployed version runs on Streamlit Cloud’s server CPU and environment.
+  - This can cause differences in speed, audio decoding, model behaviour, and final transcript quality.
+- Korean or noisy audio/video files likely to produce lower-quality transcripts on the hosted demo compared to local testing.
+  - This is more noticeable with music, background noise, unclear vocals, or short speech fragments.
+  - Version 7 improved this by switching from `tiny` model to `base` model and adding hallucination-reduction settings.
+- The hosted app is a prototype, not a production transcription service.
+  - Long files may be slow.
+  - Large files may fail depending on cloud resource limits.
+- TikTok/Douyin URL input is not currently supported.
+  - The app currently works with local files only.
+
+## Future versions
+- Add `.srt` and `.vtt` subtitle export
+- Improve UI and styling
+- Add support for transcript history
+  - which would lead to account creation stuff
+- Rebuild the prototype into a fuller web app using:
+  - React
+  - Tailwind CSS
+  - Node.js/Express or FastAPI
+  - SQL database
+- Run faster-whisper transcription on the user’s device using browser-based models such as Transformers.js
+- Consider TikTok/Douyin URL support
+
+## How to Run Locally
+
+Clone the repository:
+
+```bash
+git clone <https://github.com/EtreanSea/media-transcriber.git>
+cd media-transcriber

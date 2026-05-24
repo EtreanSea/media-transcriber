@@ -10,7 +10,7 @@ from faster_whisper import WhisperModel
 def load_model():
     #Debug
     #st.write("Loading WhisperModel...")
-    model_size = "tiny"
+    model_size = "base"
     model = WhisperModel(model_size, device="cpu", compute_type="int8")
     return model
 
@@ -37,7 +37,7 @@ def format_segment(segment, line_num, show_line, show_time):
 
 def transcribe_file(file_path, original_filename, language_code, show_line, show_time):
     model = load_model()
-    segments, info = model.transcribe(file_path, beam_size=2, language=language_code)
+    segments, info = model.transcribe(file_path, beam_size=2, language=language_code, vad_filter=True, condition_on_previous_text=False)
     transcript_lines = []
     for line_num, segment in enumerate(segments, start=1):
         segment_line = format_segment(segment, line_num, show_line, show_time)
@@ -46,7 +46,9 @@ def transcribe_file(file_path, original_filename, language_code, show_line, show
 
     return f"""{"\n".join(transcript_lines)}
 
-Original filename: {original_filename}
+Model size: base
+Device: cpu
+Compute type: int8
 Language code: {language_code}
 Detected Language: {info.language}
 Accuracy confidence: {info.language_probability}

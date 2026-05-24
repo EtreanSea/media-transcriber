@@ -1,4 +1,4 @@
-# Version 0.6: optional timestamps and line numbers
+# Version 0.7: improved accuracy using "base" model, additional transcribe settings
 
 import os
 import tempfile
