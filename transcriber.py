@@ -56,5 +56,13 @@ Accuracy confidence: {info.language_probability}
 
 #only run if directly executing transcriber.py, wont run when app.py imports transcriber.py
 if __name__ == "__main__":
-    result = transcribe_file("samples/test.mp3", "test.mp3", None)
+    result = transcribe_file(
+        "samples/test.mp3",
+        "test.mp3",
+        None,
+        False,
+        True,
+        False,
+        False
+    )
     print(result)

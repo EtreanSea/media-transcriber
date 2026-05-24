@@ -60,7 +60,7 @@ if uploaded_file is not None:
     show_time = st.checkbox(label="Timestamps", value=True)
     show_line = st.checkbox(label="Line numbers", value=False)
     activate_vad = st.checkbox(label="Voice Activity Detection Filter", value=False)
-    activate_guess = st.checkbox(label="Reduce Prediction", value=True)
+    activate_guess = st.checkbox(label="Use Prediction", value=True)
 
     #Transcribe button
     if st.button("Transcribe", type="primary"):
