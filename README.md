@@ -1,9 +1,8 @@
 # Media Transcriber
 
-web app version: https://media-transcriber.streamlit.app
 A Streamlit web app for transcribing short audio and video files using `faster-whisper`.
-The app accepts uploaded media files, runs speech-to-text transcription, and outputs a downloadable transcript with optional timestamps and line numbers.
-
+The app accepts uploaded media files, runs speech-to-text transcription, and outputs a downloadable transcript with optional timestamps and line numbers.\
+Web version: https://media-transcriber.streamlit.app
 ## Problem
 
 Sometimes I want the transcript of a TikTok/Douyin videos, but many online tools either rely on the platform's built-in captions or require payment for better transcription.
