@@ -35,9 +35,9 @@ def format_segment(segment, line_num, show_line, show_time):
     return " ".join(prefix_parts)
 
 
-def transcribe_file(file_path, original_filename, language_code, show_line, show_time):
+def transcribe_file(file_path, original_filename, language_code, show_line, show_time, vad, predict):
     model = load_model()
-    segments, info = model.transcribe(file_path, beam_size=2, language=language_code, vad_filter=True, condition_on_previous_text=False)
+    segments, info = model.transcribe(file_path, beam_size=2, language=language_code, vad_filter=vad, condition_on_previous_text=predict)
     transcript_lines = []
     for line_num, segment in enumerate(segments, start=1):
         segment_line = format_segment(segment, line_num, show_line, show_time)

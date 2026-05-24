@@ -1,4 +1,4 @@
-# Version 0.7: improved accuracy using "base" model, additional transcribe settings
+# Version 0.7.5: made vad and prediction based on previous text optional
 
 import os
 import tempfile
@@ -59,6 +59,8 @@ if uploaded_file is not None:
     #checkboxes for toggling timestamps and line numbers
     show_time = st.checkbox(label="Timestamps", value=True)
     show_line = st.checkbox(label="Line numbers", value=False)
+    activate_vad = st.checkbox(label="Voice Activity Detection Filter", value=False)
+    activate_guess = st.checkbox(label="Reduce Prediction", value=True)
 
     #Transcribe button
     if st.button("Transcribe", type="primary"):
@@ -73,7 +75,7 @@ if uploaded_file is not None:
         with tempfile.NamedTemporaryFile(delete=False, suffix=uploaded_file_suffix) as temp_file:
             temp_file.write(uploaded_file_bytes)
             temp_file_path = temp_file.name
-        st.session_state['transcript'] = transcribe_file(temp_file_path, uploaded_file.name,language_code, show_line, show_time)
+        st.session_state['transcript'] = transcribe_file(temp_file_path, uploaded_file.name,language_code, show_line, show_time, activate_vad, activate_guess)
         os.remove(temp_file_path)
     
     #Debug

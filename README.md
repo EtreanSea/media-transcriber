@@ -26,12 +26,12 @@ This project is an attempt to build my own transcription tool that works from an
 
 ## Current Version
 
-### Version 7
+### Version 7.5
 
 - improved transcription accuracy by 
   - switching whisper model from "tiny" to "base"
   - additional transcribe settings "vad_filter=True, condition_on_previous_text=False"
-
+  - made vad_filter and condition_on_previous settings optional, as enabling either/both/none could result in different results depending on the media's audio 
 
 ## Development progress
 
@@ -100,5 +100,5 @@ This project is an attempt to build my own transcription tool that works from an
 Clone the repository:
 
 ```bash
-git clone <https://github.com/EtreanSea/media-transcriber.git>
+git clone https://github.com/EtreanSea/media-transcriber.git
 cd media-transcriber
