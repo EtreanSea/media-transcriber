@@ -69,6 +69,7 @@ This project is an attempt to build my own transcription tool that works from an
 
 ## Known Issues / Limitations
 
+- Due to the web version using streamlit's community cloud, after a period of inactivity when opening the app again it will require a couple minutes to "wake the website up"
 - Transcription quality vary between the local version and the deployed Streamlit Community Cloud version
   - The local version runs on my laptop.
   - The deployed version runs on Streamlit Cloud’s server CPU and environment.
