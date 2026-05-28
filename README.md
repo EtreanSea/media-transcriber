@@ -3,6 +3,8 @@
 A Streamlit web app for transcribing short audio and video files using `faster-whisper`.
 The app accepts uploaded media files, runs speech-to-text transcription, and outputs a downloadable transcript with optional timestamps and line numbers.\
 Web version: https://media-transcriber.streamlit.app
+
+Note: The web version may take around 30 seconds to wake up if it has been inactive, due to Streamlit Community Cloud's system.
 ## Problem
 
 Sometimes I want the transcript of a TikTok/Douyin videos, but many online tools either rely on the platform's built-in captions or require payment for better transcription.
@@ -93,6 +95,8 @@ This project is an attempt to build my own transcription tool that works from an
   - Tailwind CSS
   - Node.js/Express or FastAPI
   - SQL database
+  - Redis (show transcription progress for example)
+  - Spring
 - Run faster-whisper transcription on the user’s device using browser-based models such as Transformers.js
 - Consider TikTok/Douyin URL support
 
