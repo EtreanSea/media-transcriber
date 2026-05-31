@@ -23,10 +23,17 @@ def display_preview(file):
     else:
         st.write("File type not supported")
 
-if "transcript" not in st.session_state:
-    st.session_state['transcript'] = ""
+if ".txt" not in st.session_state:
+    st.session_state[".txt"] = ""
+
+if ".srt" not in st.session_state:
+    st.session_state[".srt"] = ""
+
+if "info" not in st.session_state:
+    st.session_state["info"] = ""
+
 if "last_uploaded_file" not in st.session_state:
-    st.session_state['last_uploaded_file'] = None
+    st.session_state["last_uploaded_file"] = None
 
 st.title("Media-Transcriber")
 
@@ -42,9 +49,12 @@ uploaded_file = st.file_uploader(label="Upload audio/video",accept_multiple_file
 #After file is uploaded
 if uploaded_file is not None:
 
-    if st.session_state['last_uploaded_file'] != uploaded_file.name:
-        st.session_state['transcript'] = ""
-        st.session_state['last_uploaded_file'] = uploaded_file.name
+    #reset transcript data if upload a new media file
+    if st.session_state["last_uploaded_file"] != uploaded_file.name:
+        st.session_state[".txt"] = ""
+        st.session_state[".srt"] = ""
+        st.session_state["info"] = ""
+        st.session_state["last_uploaded_file"] = uploaded_file.name
     display_file_info(uploaded_file)
     display_preview(uploaded_file)
 
@@ -75,21 +85,36 @@ if uploaded_file is not None:
         with tempfile.NamedTemporaryFile(delete=False, suffix=uploaded_file_suffix) as temp_file:
             temp_file.write(uploaded_file_bytes)
             temp_file_path = temp_file.name
-        st.session_state['transcript'] = transcribe_file(temp_file_path, uploaded_file.name,language_code, show_line, show_time, activate_vad, activate_guess)
+            transcript_data = transcribe_file(temp_file_path, language_code, show_line, show_time, activate_vad, activate_guess)
+            st.session_state['.txt'] = transcript_data[0]
+            st.session_state['.srt'] = transcript_data[1]
+            st.session_state['info'] = transcript_data[2]
         os.remove(temp_file_path)
     
     #Debug
     #st.session_state
 
-    if st.session_state['transcript']:
+    if st.session_state['.txt']:
         txt = st.text_area(
             "Transcript", 
-            value=st.session_state['transcript'], 
+            value=st.session_state['.txt'],
             height="content")
-        download_type = st.selectbox("Export as...", [".txt"], index = None, placeholder = "Select File Type")
-        if download_type is not None:
-            st.download_button(label="Download", data=txt, file_name="transcript" + download_type, type="primary", icon=":material/download:")
+        download_type = st.selectbox("Export as...", [".txt", ".srt"], index = None, placeholder = "Select File Type")
 
+        download_data = {
+            ".txt" : st.session_state['.txt'],
+            ".srt" : st.session_state['.srt']
+        }
+
+        #download button only appear after selecting what to download
+        if download_type is not None:
+            st.download_button(label="Download", data=download_data[download_type], file_name="transcript" + download_type, type="primary", icon=":material/download:")
+
+        st.divider()
+
+        if st.session_state['info']:
+            with st.expander("Transcription details"):
+                st.code(st.session_state['info'])
 
 
 else:

@@ -20,55 +20,6 @@ This project is an attempt to build my own transcription tool that works from an
 - Cached Whisper model loading for faster repeated transcriptions
 - Temporary file handling for uploads
 
-## Tech stack
-- Python
-- Streamlit
-- faster-whisper
-- Git/Github
-
-## Current Version
-
-### Version 7.5
-
-- improved transcription accuracy by 
-  - switching whisper model from "tiny" to "base"
-  - additional transcribe settings "vad_filter=True, condition_on_previous_text=False"
-  - made vad_filter and condition_on_previous settings optional, as enabling either/both/none could result in different results depending on the media's audio 
-
-## Development progress
-
-### Version 1
-- streamlit
-- fake transcripter that haven't implemented faster-whisper model
-- Accept a local audio/video file.
-- Extract or read the audio.
-- Transcribe the speech.
-- Save the result as a fake `transcript.txt`.
-
-### Version 2
-
-- implemented simple timestamps function.
-
-### Version 3
-
-- Add language selection:
-  - Chinese
-  - English
-  - Auto-detect
-
-### Version 4
-
-- implemented the faster-whisper model, transcripts are no longer fake.
-
-### Version 5
-
-- implemented the faster-whisper model to cache (so streamlit wouldn't load it again every time i transcribe)
-
-### Version 6
-
-- made timestamp and line_number optionals
-- launched the app on streamlit's community cloud
-
 ## Known Issues / Limitations
 
 - Due to the web version using streamlit's community cloud, after a period of inactivity when opening the app again it will require a couple minutes to "wake the website up"
@@ -85,8 +36,62 @@ This project is an attempt to build my own transcription tool that works from an
 - TikTok/Douyin URL input is not currently supported.
   - The app currently works with local files only.
 
+## Tech stack
+- Python
+- Streamlit
+- faster-whisper
+- Git/Github
+
+## Current Version
+
+### Version 8 (Final before migrating to proper stack)
+
+- seperated transcript display from transcription details
+- added `.srt` as export option
+- added transcription details tab at the bottom for settings/model information
+
+## Development progress
+### Version 7
+
+- improved transcription accuracy by 
+  - switching whisper model from "tiny" to "base"
+  - additional transcribe settings "vad_filter=True, condition_on_previous_text=False"
+  - made the above 2 settings optional ("vad_filter" and "condition_on_previous_text"), as enabling either/both/none could result in different results depending on the media's audio 
+
+### Version 6
+
+- made timestamp and line_number optionals
+- launched the app on streamlit's community cloud
+
+### Version 5
+
+- implemented caching system for faster-whisper model so it wouldn't need to load evertime page gets refreshed by streamlit
+
+### Version 4
+
+- implemented the faster-whisper model, transcripts are no longer fake dummies.
+
+### Version 3
+
+- Add language selection:
+  - Chinese
+  - English
+  - Auto-detect
+
+### Version 2
+
+- implemented simple timestamps function.
+
+
+### Version 1
+- streamlit
+- fake transcripter that haven't implemented faster-whisper model
+- Accept a local audio/video file.
+- Extract or read the audio.
+- Transcribe the speech.
+- Save the result as a fake `transcript.txt`.
+
 ## Future versions
-- Add `.srt` and `.vtt` subtitle export
 - Improve UI and styling
 - Add support for transcript history
   - which would lead to account creation stuff
